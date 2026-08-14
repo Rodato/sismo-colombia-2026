@@ -1,0 +1,342 @@
+{
+ "evento": {
+  "magnitud": 7.4,
+  "profundidad_km": 110.3,
+  "fecha_utc": "2026-08-10T12:34:28Z",
+  "hora_local": "07:34",
+  "epicentro": "San José del Palmar, Chocó",
+  "lat": 4.8436,
+  "lon": -76.2422,
+  "mecanismo": "falla de rumbo, sismo intraplaca profundo"
+ },
+ "alcance": {
+  "municipios_mmi6": 208,
+  "municipios_mmi7": 60,
+  "municipios_mmi75": 25,
+  "poblacion_mmi6": 11131825,
+  "municipios_ungrd": 403,
+  "departamentos_ungrd": 14
+ },
+ "cobertura": {
+  "notas_corpus": 199,
+  "medios": 11,
+  "municipios_con_mencion": 80,
+  "municipios_sacudidos": 208,
+  "concentracion_top10_pct": 57.3
+ },
+ "danos": {
+  "viviendas_destruidas": 12584,
+  "viviendas_averiadas": 74873,
+  "edificaciones_colapsadas": 172,
+  "centros_educativos_afectados": 2198,
+  "centros_salud_afectados": 216,
+  "municipios_afectados": 403,
+  "departamentos_afectados": 14
+ },
+ "serie": [
+  {
+   "fecha": "2026-08-10",
+   "corte": "noche",
+   "muertos": 132,
+   "heridos": 570,
+   "desaparecidos": null,
+   "familias": null,
+   "personas": null,
+   "fuente": "Infobae",
+   "url": "https://www.infobae.com/colombia/2026/08/11/mas-de-130-muertos-570-heridos-viviendas-y-vias-danadas-y-aeropuertos-cerrados-las-dramaticas-cifras-que-deja-hasta-ahora-el-terremoto-en-colombia/"
+  },
+  {
+   "fecha": "2026-08-11",
+   "corte": "—",
+   "muertos": 188,
+   "heridos": 1677,
+   "desaparecidos": null,
+   "familias": null,
+   "personas": null,
+   "fuente": "Infobae",
+   "url": "https://www.infobae.com/colombia/2026/08/11/sube-a-188-la-cifra-de-muertos-y-1677-heridos-en-quibdo-pereira-manizales-cali-armenia-y-popayan-por-el-terremoto-de-magnitud-74/"
+  },
+  {
+   "fecha": "2026-08-12",
+   "corte": "07:30",
+   "muertos": 239,
+   "heridos": 3755,
+   "desaparecidos": 287.0,
+   "familias": null,
+   "personas": null,
+   "fuente": "UNGRD vía El Colombiano",
+   "url": "https://www.elcolombiano.com/colombia/muertos-terremoto-en-colombia-heridos-replicas-choco-hoy-GC39809690"
+  },
+  {
+   "fecha": "2026-08-12",
+   "corte": "tarde",
+   "muertos": 265,
+   "heridos": 3494,
+   "desaparecidos": 496.0,
+   "familias": null,
+   "personas": 53816.0,
+   "fuente": "UNGRD vía El Colombiano",
+   "url": "https://www.elcolombiano.com/colombia/cifra-muertos-heridos-desaparecidos-por-terremoto-colombia-MK39884181"
+  },
+  {
+   "fecha": "2026-08-13",
+   "corte": "mañana",
+   "muertos": 273,
+   "heridos": 3824,
+   "desaparecidos": 377.0,
+   "familias": 40753.0,
+   "personas": 97515.0,
+   "fuente": "UNGRD vía El Tiempo",
+   "url": "https://www.eltiempo.com/amp/vida/ungrd-entrega-nuevo-balance-del-terremoto-en-colombia-40-753-familias-afectadas-y-273-muertos-3578185"
+  },
+  {
+   "fecha": "2026-08-13",
+   "corte": "17:00",
+   "muertos": 281,
+   "heridos": 3971,
+   "desaparecidos": 379.0,
+   "familias": 44936.0,
+   "personas": 102105.0,
+   "fuente": "UNGRD / Fiscalía vía El Tiempo",
+   "url": "https://www.eltiempo.com/colombia/otras-ciudades/balance-oficial-de-la-ungrd-tras-terremoto-de-magnitud-7-4-en-colombia-273-fallecidos-3-824-heridos-y-377-desaparecidos-3578196"
+  }
+ ],
+ "pager": {
+  "mediana_muertos": 961,
+  "poblacion_mmi6": 5507652,
+  "poblacion_mmi7": 5163899,
+  "poblacion_mmi8": 1218340,
+  "alerta": "roja",
+  "alerta_deslizamientos": "naranja",
+  "deslizamiento_km2": 37,
+  "deslizamiento_personas": 4400
+ },
+ "cinturon_suelo_blando": [
+  {
+   "municipio": "VILLA RICA",
+   "departamento": "CAUCA",
+   "vs30": 225,
+   "mmi": 6.3,
+   "pob": 23909,
+   "licuef": 0.34,
+   "menciones": 0
+  },
+  {
+   "municipio": "PUERTO TEJADA",
+   "departamento": "CAUCA",
+   "vs30": 226,
+   "mmi": 6.5,
+   "pob": 43709,
+   "licuef": 0.34,
+   "menciones": 1
+  },
+  {
+   "municipio": "CANDELARIA",
+   "departamento": "VALLE DEL CAUCA",
+   "vs30": 232,
+   "mmi": 6.7,
+   "pob": 115933,
+   "licuef": 0.33,
+   "menciones": 0
+  },
+  {
+   "municipio": "PADILLA",
+   "departamento": "CAUCA",
+   "vs30": 248,
+   "mmi": 6.2,
+   "pob": 10622,
+   "licuef": 0.28,
+   "menciones": 3
+  },
+  {
+   "municipio": "SALDAÑA",
+   "departamento": "TOLIMA",
+   "vs30": 251,
+   "mmi": 6.2,
+   "pob": 14826,
+   "licuef": 0.29,
+   "menciones": 0
+  },
+  {
+   "municipio": "FLANDES",
+   "departamento": "TOLIMA",
+   "vs30": 259,
+   "mmi": 6.2,
+   "pob": 29156,
+   "licuef": 0.23,
+   "menciones": 0
+  },
+  {
+   "municipio": "GUACHENÉ",
+   "departamento": "CAUCA",
+   "vs30": 260,
+   "mmi": 6.2,
+   "pob": 20437,
+   "licuef": 0.28,
+   "menciones": 0
+  },
+  {
+   "municipio": "ESPINAL",
+   "departamento": "TOLIMA",
+   "vs30": 273,
+   "mmi": 6.1,
+   "pob": 71952,
+   "licuef": 0.11,
+   "menciones": 1
+  }
+ ],
+ "corredor_choco": [
+  {
+   "municipio": "EL LITORAL DEL SAN JUAN",
+   "mmi": 6.9,
+   "licuef_km2": 672,
+   "pob": 27635,
+   "deficit": 99.2,
+   "menciones": 10
+  },
+  {
+   "municipio": "MEDIO ATRATO",
+   "mmi": 6.9,
+   "licuef_km2": 424,
+   "pob": 11341,
+   "deficit": 99.2,
+   "menciones": 0
+  },
+  {
+   "municipio": "BAJO BAUDÓ",
+   "mmi": 6.9,
+   "licuef_km2": 420,
+   "pob": 35053,
+   "deficit": 89.4,
+   "menciones": 1
+  },
+  {
+   "municipio": "QUIBDÓ",
+   "mmi": 7.8,
+   "licuef_km2": 358,
+   "pob": 143332,
+   "deficit": 89.7,
+   "menciones": 97
+  },
+  {
+   "municipio": "BOJAYÁ",
+   "mmi": 6.2,
+   "licuef_km2": 224,
+   "pob": 13290,
+   "deficit": 97.7,
+   "menciones": 0
+  },
+  {
+   "municipio": "MEDIO BAUDÓ",
+   "mmi": 6.9,
+   "licuef_km2": 185,
+   "pob": 17617,
+   "deficit": 99.6,
+   "menciones": 0
+  },
+  {
+   "municipio": "MEDIO SAN JUAN",
+   "mmi": 7.0,
+   "licuef_km2": 178,
+   "pob": 11296,
+   "deficit": 97.6,
+   "menciones": 0
+  },
+  {
+   "municipio": "ISTMINA",
+   "mmi": 7.0,
+   "licuef_km2": 177,
+   "pob": 36717,
+   "deficit": 99.3,
+   "menciones": 8
+  },
+  {
+   "municipio": "RÍO QUITO",
+   "mmi": 7.7,
+   "licuef_km2": 159,
+   "pob": 8477,
+   "deficit": 81.1,
+   "menciones": 0
+  },
+  {
+   "municipio": "NÓVITA",
+   "mmi": 7.0,
+   "licuef_km2": 132,
+   "pob": 10016,
+   "deficit": 87.4,
+   "menciones": 15
+  }
+ ],
+ "mas_mencionados": [
+  {
+   "municipio": "PEREIRA",
+   "departamento": "RISARALDA",
+   "menciones": 219,
+   "mmi": 7.9
+  },
+  {
+   "municipio": "QUIBDÓ",
+   "departamento": "CHOCÓ",
+   "menciones": 97,
+   "mmi": 7.8
+  },
+  {
+   "municipio": "MANIZALES",
+   "departamento": "CALDAS",
+   "menciones": 96,
+   "mmi": 8.0
+  },
+  {
+   "municipio": "SAN JOSÉ DEL PALMAR",
+   "departamento": "CHOCÓ",
+   "menciones": 82,
+   "mmi": 6.9
+  },
+  {
+   "municipio": "RISARALDA",
+   "departamento": "CALDAS",
+   "menciones": 60,
+   "mmi": 7.2
+  },
+  {
+   "municipio": "BUENAVENTURA",
+   "departamento": "VALLE DEL CAUCA",
+   "menciones": 49,
+   "mmi": 7.7
+  },
+  {
+   "municipio": "MEDELLÍN",
+   "departamento": "ANTIOQUIA",
+   "menciones": 48,
+   "mmi": 5.8
+  },
+  {
+   "municipio": "GUTIÉRREZ",
+   "departamento": "CUNDINAMARCA",
+   "menciones": 31,
+   "mmi": 4.8
+  },
+  {
+   "municipio": "BELTRÁN",
+   "departamento": "CUNDINAMARCA",
+   "menciones": 28,
+   "mmi": 6.2
+  },
+  {
+   "municipio": "ALVARADO",
+   "departamento": "TOLIMA",
+   "menciones": 24,
+   "mmi": 6.2
+  }
+ ],
+ "fuentes": {
+  "sacudida": "USGS ShakeMap v6, evento us6000tjl2",
+  "suelo": "Vs30 del propio ShakeMap",
+  "deslizamientos": "Nowicki Jessee y otros (2018), USGS ground-failure",
+  "licuefaccion": "Zhu y otros (2017), USGS ground-failure",
+  "poblacion": "DANE, proyecciones municipales 2018-2042 (corte 2026)",
+  "vulnerabilidad": "DANE, déficit habitacional CNPV 2018",
+  "geometria": "DANE, Marco Geoestadístico Nacional 2023",
+  "cifras_oficiales": "UNGRD, vía prensa fechada y atribuida"
+ }
+}
