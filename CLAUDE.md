@@ -88,8 +88,13 @@ vez y el parser aborta sin `</grid_data>`.
 build time**; el mapa (`components/Mapa.tsx`, cliente) hace `fetch` del GeoJSON. No hay API
 routes ni base de datos: cambiar datos = re-correr `07` + `npm run build`.
 
-`web/src/lib/capas.ts` define las 6 capas del mapa (campo, cortes, formato, si es invertida).
+`web/src/lib/capas.ts` define las 7 capas del mapa (campo, cortes, formato, si es invertida).
 Agregar una capa es agregar una entrada ahí; no hay que tocar el componente.
+
+Hay dos tipos de capa. Las **continuas** usan `cortes` y dibujan la rampa de 7 pasos con
+etiquetas numéricas. Las **ordinales** usan `niveles` en vez de `cortes`: pocos escalones
+con nombre, y la leyenda dibuja una muestra por nivel. `Dato de pérdidas` es la única
+ordinal por ahora. `paso()` atiende `niveles` primero y ni mira `cortes`.
 
 El mapa es **SVG con d3-geo, sin basemap ni tiles**: los polígonos municipales son el mapa.
 Eso evita API keys de terceros. No introducir MapLibre/Leaflet sin una razón fuerte.
@@ -112,7 +117,14 @@ razonando desde la especificación.
 **`cortes` debe tener exactamente `RAMPA.length - 1` entradas** (6 para 7 pasos). N cortes
 producen N+1 cubetas; con un corte de más, el índice se sale de la rampa, el `fill` queda
 `undefined` y el SVG pinta el municipio **de negro** — justo los de intensidad más alta.
-`paso()` tiene un clamp de seguridad, pero eso enmascara el bug en vez de arreglarlo.
+`paso()` tiene un clamp de seguridad, pero eso enmascara el bug en vez de arreglarlo. Esto
+aplica solo a las capas continuas: las ordinales no llevan `cortes`, se saltan ese camino.
+
+**Una capa ordinal necesita leyenda propia, no la rampa numérica.** La leyenda se genera
+desde `cortes` como umbrales, así que una variable de 3 niveles nombrados imprimía
+`<Sin dato` y `≥Cifra propia` repartidos en 7 casillas. Por eso `Capa` acepta `niveles` y
+`Leyenda` se bifurca. Si agregás otra ordinal, reusá ese camino en vez de inventar cortes
+que la hagan pasar por continua.
 
 **Vulnerabilidad = déficit habitacional TOTAL, nunca solo el cualitativo.** En el Chocó la
 vivienda es tan precaria que el DANE la clasifica como déficit *cuantitativo* (reemplazo) y
