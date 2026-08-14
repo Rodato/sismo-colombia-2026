@@ -1,0 +1,11 @@
+municipio,departamento,fecha,corte,muertos,heridos,desaparecidos,viv_colapsadas,viv_averiadas,fuente,url
+CALI,VALLE DEL CAUCA,2026-08-11,16:00,95,997.0,180.0,56.0,93.0,Asocapitales vía Noticias Caracol,https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab
+PEREIRA,RISARALDA,2026-08-11,16:00,79,278.0,37.0,92.0,26.0,Asocapitales vía Noticias Caracol,https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab
+QUIBDÓ,CHOCÓ,2026-08-11,16:00,9,116.0,5.0,23.0,862.0,Asocapitales vía Noticias Caracol,https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab
+MANIZALES,CALDAS,2026-08-11,16:00,5,112.0,,23.0,,Asocapitales vía Noticias Caracol,https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab
+ARMENIA,QUINDIO,2026-08-11,16:00,0,174.0,,69.0,,Asocapitales vía Valora Analitik,https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/
+CALI,VALLE DEL CAUCA,2026-08-13,10:00,96,,,,,Asocapitales No. 22 vía Blu Radio,https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35
+PEREIRA,RISARALDA,2026-08-13,10:00,93,259.0,260.0,,,Asocapitales No. 22 vía Blu Radio,https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35
+QUIBDÓ,CHOCÓ,2026-08-13,10:00,9,119.0,,100.0,2125.0,Asocapitales No. 22 vía Blu Radio,https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35
+MANIZALES,CALDAS,2026-08-13,10:00,6,182.0,,1449.0,,Asocapitales No. 22 vía Blu Radio,https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35
+ARMENIA,QUINDIO,2026-08-13,10:00,0,174.0,,,54.0,Asocapitales No. 22 vía Blu Radio,https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35

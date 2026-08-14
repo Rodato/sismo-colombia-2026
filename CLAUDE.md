@@ -23,6 +23,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python scripts/04_menciones.py
 .venv/bin/python scripts/05_suelo_fallido.py
 .venv/bin/python scripts/06_serie_cifras.py
+.venv/bin/python scripts/06b_perdidas_oficiales.py
 .venv/bin/python scripts/07_export_web.py
 
 # Web
@@ -68,12 +69,14 @@ ShakeMap (682) y **cada script le agrega columnas**. Esto no se ve leyendo un sc
 | `04` | corpus_limpio.json + csv | **añade** `menciones*` al csv |
 | `05` | csv + gpkg + tif de ground-failure | `suelo_fallido.csv`, reescribe el `.gpkg` |
 | `06` | (tabla curada en el código) | `serie_oficial.csv`, `danos_oficiales.json` |
-| `07` | csv + suelo_fallido + serie | `web/public/data/*` |
+| `06b` | (tabla curada en el código) + csv | `perdidas_{municipales,departamentales}.csv`, **añade** 8 columnas al csv |
+| `07` | csv + suelo_fallido + serie + pérdidas | `web/public/data/*` |
 
 **Dependencias entre scripts.** `02` recrea el CSV desde cero, así que **borra las columnas
-de menciones que agrega `04`**. Si tocás `02`, hay que re-correr `04 → 05 → 07`. `03` solo
+que agregan `04` y `06b`**. Si tocás `02`, hay que re-correr `04 → 05 → 06b → 07`. `03` solo
 hace falta si querés refrescar el corpus de prensa; `03b` y `04` trabajan sobre el JSON ya
-guardado.
+guardado. `06b` va después de `06` y **antes de `07`**: muta el CSV igual que `04`, y `07`
+espera encontrar ahí `cobertura_dato`, `muertos_rep` y `muertos_100k`.
 
 `data/raw/` (~230 MB) no está versionado. Los scripts lo descargan, pero **verificar el
 tamaño de `shakemap_grid.xml` contra los 28.513.196 bytes esperados**: ya llegó truncado una
@@ -169,6 +172,16 @@ pieza desmentible.
 - **La serie de cifras oficiales se cura a mano, con medio y URL por dato.** La extracción
   por regex confundía totales nacionales con departamentales ("14 muertos" era Chocó) y
   fechaba mal (cortes en junio y diciembre). El regex quedó solo como auditoría en `06`.
+- **La capa de pérdidas muestra dónde se PUEDE saber, no dónde hubo pérdidas.** Solo 5 de
+  682 municipios tienen cifra propia, y los 5 son capitales porque la única fuente municipal
+  es Asocapitales, la asociación de ciudades capitales. Que un municipio salga claro en esa
+  capa no dice nada sobre su daño: dice que nadie publicó el dato. Dosquebradas —#5 del
+  índice, 246.388 habitantes, MMI 7,9— es el caso que lo prueba. **No rellenar los 677
+  restantes con un modelo de fragilidad**: la pieza declara explícito que el índice no es un
+  modelo de pérdidas, y cruzarlo la hace desmentible.
+- **Los `*_rep` en null no son cero.** Armenia reportó cero muertos; los otros 677 municipios
+  no reportaron nada. `07` los deja en `null` a propósito y la ficha del mapa solo muestra
+  las filas de pérdidas cuando `cobertura_dato == 2`. Rellenar con `0` borra el hallazgo.
 
 ## Convenciones del repo
 
@@ -178,6 +191,24 @@ pieza desmentible.
 - Los commits deben ir firmados con `otero.r.daniel@gmail.com` o Vercel rechaza el
   git-deploy. Ya está configurado en el repo (`git config user.email`).
 - Deploy: `cd web && vercel deploy --prod --yes` (scope `rodatos-projects`).
+
+## Dónde NO buscar el dato municipal de pérdidas
+
+Ya se recorrieron estas rutas y están cerradas. No repetirlas sin una razón nueva.
+
+- **El tablero de la UNGRD existió** con fallecidos, heridos, desaparecidos y viviendas
+  desagregados por municipio. Lo restringieron 42 minutos después de que el periodista Ronny
+  Suárez Celemín lo hiciera público; el Sindicato Colombiano de Periodistas lo denunció
+  citando la Ley 1712 de 2014.
+- **datos.gov.co no sirve para 2026.** Los datasets de emergencias de la UNGRD
+  (`wwkg-r6te`, `4fd8-ptcr`, `4t8v-ywmw`, `rgre-6ak4`) tienen el esquema exacto que haría
+  falta, pero el más reciente termina en 2024. Verificado por API el 14 ago 2026:
+  `wwkg-r6te` devuelve 25.857 filas entre 2019-01-01 y 2022-12-31.
+- **Wayback Machine** está bloqueado desde este entorno (`curl` sale por timeout y WebFetch
+  rechaza `web.archive.org`). Si se reintenta, hacerlo desde una máquina con red abierta.
+
+Lo que sí quedó: 5 municipios vía Asocapitales (Consolidado No. 22) y 13 departamentos vía
+UNGRD. Están en `data/proc/perdidas_*.csv`, cada fila con fuente, URL y corte.
 
 ## Pendiente conocido
 

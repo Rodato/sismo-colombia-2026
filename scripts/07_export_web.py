@@ -33,6 +33,7 @@ cols_tab = [
     "divipola", "municipio", "departamento", "mmi_max", "mmi_media", "vs30_medio",
     "pob_total", "pob_cabecera", "pob_rural", "def_cualitativo", "def_habitacional",
     "menciones", "menciones_nacional", "menciones_regional", "indice", "rank",
+    "cobertura_dato", "muertos_rep", "heridos_rep", "desaparecidos_rep", "muertos_100k",
 ]
 d = tab[cols_tab].merge(
     sf[["divipola", "desliz_max", "desliz_km2", "licuef_max", "licuef_km2", "licuef_frac"]],
@@ -96,6 +97,12 @@ geo["indice"] = geo["indice"].astype(float).round(0)
 geo["licuef_frac"] = geo["licuef_frac"].astype(float).round(3)
 for c in ["pob_total", "pob_cabecera", "pob_rural"]:
     geo[c] = geo[c].fillna(0).astype(int)
+geo["cobertura_dato"] = geo["cobertura_dato"].fillna(0).astype(int)
+# Los *_rep quedan en null donde no hay dato, a propósito: 0 significaría "cero
+# muertos reportados" (que es el caso real de Armenia) y null significa "nadie
+# publicó una cifra". Confundirlos borraría justo el hallazgo de esta capa.
+for c in ["muertos_rep", "heridos_rep", "desaparecidos_rep", "muertos_100k"]:
+    geo[c] = geo[c].astype(float).round(1)
 
 salida = WEB / "municipios.geojson"
 geo.to_file(salida, driver="GeoJSON", coordinate_precision=4)
@@ -104,7 +111,11 @@ print(f"escrito: {salida}  ({salida.stat().st_size / 1e6:.2f} MB)")
 # ------------------------------------------------------------------ resumen
 serie = pd.read_csv(PROC / "serie_oficial.csv")
 danos = json.loads((PROC / "danos_oficiales.json").read_text())
+pmun = pd.read_csv(PROC / "perdidas_municipales.csv")
+pdep = pd.read_csv(PROC / "perdidas_departamentales.csv")
 sac = d[d["mmi_max"] >= 6]
+
+con_cifra = d[d["cobertura_dato"] == 2].sort_values("muertos_100k", ascending=False)
 
 resumen = {
     "evento": {
@@ -146,6 +157,44 @@ resumen = {
         "deslizamiento_km2": 37,
         "deslizamiento_personas": 4400,
     },
+    "perdidas": {
+        # Cuántos municipios tienen realmente un dato de pérdidas, que es el
+        # hallazgo de esta sección: 5 de 682.
+        "con_cifra_propia": int((d["cobertura_dato"] == 2).sum()),
+        "solo_departamental": int((d["cobertura_dato"] == 1).sum()),
+        "sin_dato": int((d["cobertura_dato"] == 0).sum()),
+        "total_municipios": int(len(d)),
+        "muertos_atribuidos": int(con_cifra["muertos_rep"].sum()),
+        "muertos_nacionales": int(serie["muertos"].iloc[-1]),
+        "muertos_sin_atribuir": int(serie["muertos"].iloc[-1] - con_cifra["muertos_rep"].sum()),
+        "corte": "2026-08-13",
+        "tablero_ungrd": {
+            "existio": True,
+            "desagregacion": "municipio y departamento",
+            "campos": "fallecidos, heridos, desaparecidos, viviendas destruidas, infraestructura",
+            "minutos_hasta_restriccion": 42,
+            "quien_lo_reveló": "Ronny Suárez Celemín",
+            "denuncia": "Sindicato Colombiano de Periodistas, Ley 1712 de 2014",
+            "url": "https://www.infobae.com/colombia/2026/08/14/sindicato-colombiano-de-periodistas-se-despacho-contra-de-la-espriella-por-restriccion-a-informacion-del-terremoto-primer-acto-de-censura/",
+        },
+        "municipios": [
+            {"municipio": r["municipio"], "departamento": r["departamento"],
+             "pob": int(r["pob_total"]), "muertos": int(r["muertos_rep"]),
+             "por_100k": round(float(r["muertos_100k"]), 1),
+             "mmi": round(float(r["mmi_max"]), 1), "rank": int(r["rank"])}
+            for _, r in con_cifra.iterrows()
+        ],
+        "departamentos": [
+            {k: (None if pd.isna(v) else (v if isinstance(v, str) else int(v)))
+             for k, v in r.items() if k not in ("fuente", "url")}
+            for _, r in pdep.iterrows()
+        ],
+        "serie_municipal": [
+            {k: (None if pd.isna(v) else (v if isinstance(v, str) else int(v)))
+             for k, v in r.items()}
+            for _, r in pmun.iterrows()
+        ],
+    },
     "cinturon_suelo_blando": [
         {
             "municipio": r["municipio"], "departamento": r["departamento"],
@@ -177,6 +226,8 @@ resumen = {
         "vulnerabilidad": "DANE, déficit habitacional CNPV 2018",
         "geometria": "DANE, Marco Geoestadístico Nacional 2023",
         "cifras_oficiales": "UNGRD, vía prensa fechada y atribuida",
+        "perdidas_municipales": "Asocapitales, Informe Consolidado No. 22 (5 capitales)",
+        "perdidas_departamentales": "UNGRD, corte 11 ago, vía prensa",
     },
 }
 def sanear(o):
@@ -211,3 +262,7 @@ print(f"  municipios con MMI>=6: {resumen['alcance']['municipios_mmi6']}")
 print(f"  población expuesta:    {resumen['alcance']['poblacion_mmi6']:,}")
 print(f"  con mención en prensa: {resumen['cobertura']['municipios_con_mencion']}")
 print(f"  concentración top-10:  {resumen['cobertura']['concentracion_top10_pct']}%")
+p = resumen["perdidas"]
+print(f"  con cifra de pérdidas: {p['con_cifra_propia']} de {p['total_municipios']}"
+      f"  ({100 * p['con_cifra_propia'] / p['total_municipios']:.1f}%)")
+print(f"  muertos sin atribuir:  {p['muertos_sin_atribuir']} de {p['muertos_nacionales']}")

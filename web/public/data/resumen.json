@@ -111,6 +111,349 @@
   "deslizamiento_km2": 37,
   "deslizamiento_personas": 4400
  },
+ "perdidas": {
+  "con_cifra_propia": 5,
+  "solo_departamental": 488,
+  "sin_dato": 189,
+  "total_municipios": 682,
+  "muertos_atribuidos": 204,
+  "muertos_nacionales": 281,
+  "muertos_sin_atribuir": 77,
+  "corte": "2026-08-13",
+  "tablero_ungrd": {
+   "existio": true,
+   "desagregacion": "municipio y departamento",
+   "campos": "fallecidos, heridos, desaparecidos, viviendas destruidas, infraestructura",
+   "minutos_hasta_restriccion": 42,
+   "quien_lo_reveló": "Ronny Suárez Celemín",
+   "denuncia": "Sindicato Colombiano de Periodistas, Ley 1712 de 2014",
+   "url": "https://www.infobae.com/colombia/2026/08/14/sindicato-colombiano-de-periodistas-se-despacho-contra-de-la-espriella-por-restriccion-a-informacion-del-terremoto-primer-acto-de-censura/"
+  },
+  "municipios": [
+   {
+    "municipio": "PEREIRA",
+    "departamento": "RISARALDA",
+    "pob": 487820,
+    "muertos": 93,
+    "por_100k": 19.1,
+    "mmi": 7.9,
+    "rank": 1
+   },
+   {
+    "municipio": "QUIBDÓ",
+    "departamento": "CHOCÓ",
+    "pob": 143332,
+    "muertos": 9,
+    "por_100k": 6.3,
+    "mmi": 7.8,
+    "rank": 9
+   },
+   {
+    "municipio": "CALI",
+    "departamento": "VALLE DEL CAUCA",
+    "pob": 2269983,
+    "muertos": 96,
+    "por_100k": 4.2,
+    "mmi": 6.7,
+    "rank": 2
+   },
+   {
+    "municipio": "MANIZALES",
+    "departamento": "CALDAS",
+    "pob": 475690,
+    "muertos": 6,
+    "por_100k": 1.3,
+    "mmi": 8.0,
+    "rank": 3
+   },
+   {
+    "municipio": "ARMENIA",
+    "departamento": "QUINDIO",
+    "pob": 307103,
+    "muertos": 0,
+    "por_100k": 0.0,
+    "mmi": 7.6,
+    "rank": 4
+   }
+  ],
+  "departamentos": [
+   {
+    "departamento": "RISARALDA",
+    "muertos": 90,
+    "heridos": 224,
+    "desaparecidos": 14,
+    "viv_averiadas": 40,
+    "viv_destruidas": 0,
+    "edif_colapsadas": 0,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "VALLE DEL CAUCA",
+    "muertos": 70,
+    "heridos": 1648,
+    "desaparecidos": 171,
+    "viv_averiadas": 1073,
+    "viv_destruidas": 256,
+    "edif_colapsadas": 44,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "CHOCÓ",
+    "muertos": 14,
+    "heridos": 131,
+    "desaparecidos": 10,
+    "viv_averiadas": 1832,
+    "viv_destruidas": 715,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "CALDAS",
+    "muertos": 6,
+    "heridos": 274,
+    "desaparecidos": null,
+    "viv_averiadas": 1959,
+    "viv_destruidas": 156,
+    "edif_colapsadas": 4,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "QUINDIO",
+    "muertos": 0,
+    "heridos": 306,
+    "desaparecidos": null,
+    "viv_averiadas": 2144,
+    "viv_destruidas": 3,
+    "edif_colapsadas": 0,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "ANTIOQUIA",
+    "muertos": 1,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 857,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "TOLIMA",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 234,
+    "viv_destruidas": 6,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "CUNDINAMARCA",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 89,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "HUILA",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 52,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "SUCRE",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 56,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "CAUCA",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 5,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "NORTE DE SANTANDER",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 5,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   },
+   {
+    "departamento": "BOLIVAR",
+    "muertos": null,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_averiadas": 1,
+    "viv_destruidas": null,
+    "edif_colapsadas": null,
+    "fecha": "2026-08-11",
+    "corte": "mañana"
+   }
+  ],
+  "serie_municipal": [
+   {
+    "municipio": "CALI",
+    "departamento": "VALLE DEL CAUCA",
+    "fecha": "2026-08-11",
+    "corte": "16:00",
+    "muertos": 95,
+    "heridos": 997,
+    "desaparecidos": 180,
+    "viv_colapsadas": 56,
+    "viv_averiadas": 93,
+    "fuente": "Asocapitales vía Noticias Caracol",
+    "url": "https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab"
+   },
+   {
+    "municipio": "PEREIRA",
+    "departamento": "RISARALDA",
+    "fecha": "2026-08-11",
+    "corte": "16:00",
+    "muertos": 79,
+    "heridos": 278,
+    "desaparecidos": 37,
+    "viv_colapsadas": 92,
+    "viv_averiadas": 26,
+    "fuente": "Asocapitales vía Noticias Caracol",
+    "url": "https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab"
+   },
+   {
+    "municipio": "QUIBDÓ",
+    "departamento": "CHOCÓ",
+    "fecha": "2026-08-11",
+    "corte": "16:00",
+    "muertos": 9,
+    "heridos": 116,
+    "desaparecidos": 5,
+    "viv_colapsadas": 23,
+    "viv_averiadas": 862,
+    "fuente": "Asocapitales vía Noticias Caracol",
+    "url": "https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab"
+   },
+   {
+    "municipio": "MANIZALES",
+    "departamento": "CALDAS",
+    "fecha": "2026-08-11",
+    "corte": "16:00",
+    "muertos": 5,
+    "heridos": 112,
+    "desaparecidos": null,
+    "viv_colapsadas": 23,
+    "viv_averiadas": null,
+    "fuente": "Asocapitales vía Noticias Caracol",
+    "url": "https://www.noticiascaracol.com/colombia/en-vivo-colombia-hoy-tras-terremoto-de-magnitud-7-4-continuan-las-lab"
+   },
+   {
+    "municipio": "ARMENIA",
+    "departamento": "QUINDIO",
+    "fecha": "2026-08-11",
+    "corte": "16:00",
+    "muertos": 0,
+    "heridos": 174,
+    "desaparecidos": null,
+    "viv_colapsadas": 69,
+    "viv_averiadas": null,
+    "fuente": "Asocapitales vía Valora Analitik",
+    "url": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/"
+   },
+   {
+    "municipio": "CALI",
+    "departamento": "VALLE DEL CAUCA",
+    "fecha": "2026-08-13",
+    "corte": "10:00",
+    "muertos": 96,
+    "heridos": null,
+    "desaparecidos": null,
+    "viv_colapsadas": null,
+    "viv_averiadas": null,
+    "fuente": "Asocapitales No. 22 vía Blu Radio",
+    "url": "https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35"
+   },
+   {
+    "municipio": "PEREIRA",
+    "departamento": "RISARALDA",
+    "fecha": "2026-08-13",
+    "corte": "10:00",
+    "muertos": 93,
+    "heridos": 259,
+    "desaparecidos": 260,
+    "viv_colapsadas": null,
+    "viv_averiadas": null,
+    "fuente": "Asocapitales No. 22 vía Blu Radio",
+    "url": "https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35"
+   },
+   {
+    "municipio": "QUIBDÓ",
+    "departamento": "CHOCÓ",
+    "fecha": "2026-08-13",
+    "corte": "10:00",
+    "muertos": 9,
+    "heridos": 119,
+    "desaparecidos": null,
+    "viv_colapsadas": 100,
+    "viv_averiadas": 2125,
+    "fuente": "Asocapitales No. 22 vía Blu Radio",
+    "url": "https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35"
+   },
+   {
+    "municipio": "MANIZALES",
+    "departamento": "CALDAS",
+    "fecha": "2026-08-13",
+    "corte": "10:00",
+    "muertos": 6,
+    "heridos": 182,
+    "desaparecidos": null,
+    "viv_colapsadas": 1449,
+    "viv_averiadas": null,
+    "fuente": "Asocapitales No. 22 vía Blu Radio",
+    "url": "https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35"
+   },
+   {
+    "municipio": "ARMENIA",
+    "departamento": "QUINDIO",
+    "fecha": "2026-08-13",
+    "corte": "10:00",
+    "muertos": 0,
+    "heridos": 174,
+    "desaparecidos": null,
+    "viv_colapsadas": null,
+    "viv_averiadas": 54,
+    "fuente": "Asocapitales No. 22 vía Blu Radio",
+    "url": "https://www.bluradio.com/nacion/aumenta-a-273-el-numero-de-muertos-por-el-terremoto-en-colombia-so35"
+   }
+  ]
+ },
  "cinturon_suelo_blando": [
   {
    "municipio": "VILLA RICA",
@@ -337,6 +680,8 @@
   "poblacion": "DANE, proyecciones municipales 2018-2042 (corte 2026)",
   "vulnerabilidad": "DANE, déficit habitacional CNPV 2018",
   "geometria": "DANE, Marco Geoestadístico Nacional 2023",
-  "cifras_oficiales": "UNGRD, vía prensa fechada y atribuida"
+  "cifras_oficiales": "UNGRD, vía prensa fechada y atribuida",
+  "perdidas_municipales": "Asocapitales, Informe Consolidado No. 22 (5 capitales)",
+  "perdidas_departamentales": "UNGRD, corte 11 ago, vía prensa"
  }
 }

@@ -20,6 +20,11 @@ export type Props = {
   licuef_max: number;
   licuef_km2: number;
   licuef_frac: number;
+  cobertura_dato: number;
+  muertos_rep: number | null;
+  heridos_rep: number | null;
+  desaparecidos_rep: number | null;
+  muertos_100k: number | null;
 };
 
 export type Capa = {
@@ -28,12 +33,34 @@ export type Capa = {
   campo: keyof Props;
   descripcion: string;
   /** Cortes de la escala. El último es el tope; valores mayores caen en el último paso. */
-  cortes: number[];
+  cortes?: number[];
+  /**
+   * Capas ORDINALES (pocos niveles nombrados) en vez de una escala continua.
+   * El índice del arreglo es el valor crudo del campo, y `paso` dice a qué
+   * escalón de RAMPA va. Cuando está presente manda sobre `cortes`: la leyenda
+   * dibuja una muestra por nivel, no las 7 de la rampa. Sin esto la leyenda
+   * imprimiría "<Sin dato" y "≥Cifra propia" repartidos en 7 casillas.
+   */
+  niveles?: { etiqueta: string; paso: number }[];
   /** true si un valor BAJO es el caso severo (p. ej. suelo blando). */
   invertida?: boolean;
   formato: (v: number) => string;
   unidad: string;
 };
+
+/**
+ * Niveles de la capa de cobertura del dato de pérdidas.
+ *
+ * El salto del paso 2 al 6 es deliberado. 488 municipios están en el nivel 1 y
+ * si ese nivel cayera al medio de la rampa el mapa se vería mayormente azul, o
+ * sea "hay bastante dato" — justo lo contrario de lo que muestra. Solo 5
+ * municipios llegan al tono fuerte, y esa es la lectura correcta.
+ */
+export const NIVELES_COBERTURA = [
+  { etiqueta: "Sin dato", paso: 0 },
+  { etiqueta: "Solo su departamento", paso: 2 },
+  { etiqueta: "Cifra propia", paso: 6 },
+];
 
 const num = (d = 0) => (v: number) =>
   v == null || Number.isNaN(v) ? "—" : v.toLocaleString("es-CO", { maximumFractionDigits: d, minimumFractionDigits: d });
@@ -102,6 +129,16 @@ export const CAPAS: Capa[] = [
     formato: num(0),
     unidad: "menciones",
   },
+  {
+    id: "perdidas",
+    nombre: "Dato de pérdidas",
+    campo: "cobertura_dato",
+    descripcion:
+      "Si existe o no una cifra pública de muertos, heridos y viviendas para ese municipio. Solo 5 de 682 la tienen, y los 5 son capitales: la única fuente municipal es Asocapitales, la asociación de ciudades capitales, que por diseño no puede contar un municipio que no lo sea. La UNGRD sí tuvo un tablero desagregado por municipio y lo deshabilitó 42 minutos después de que un periodista lo hiciera público. Este mapa no muestra dónde hubo pérdidas: muestra dónde se puede saber.",
+    niveles: NIVELES_COBERTURA,
+    formato: (v) => NIVELES_COBERTURA[v]?.etiqueta ?? "—",
+    unidad: "",
+  },
 ];
 
 /**
@@ -115,7 +152,9 @@ export const CAPAS: Capa[] = [
  */
 export function paso(v: number | null | undefined, capa: Capa): number | null {
   if (v == null || Number.isNaN(v)) return null;
+  if (capa.niveles) return capa.niveles[v]?.paso ?? null;
   const c = capa.cortes;
+  if (!c) return null;
   let i = 0;
   while (i < c.length && v >= c[i]) i++;
   const idx = capa.invertida ? c.length - i : i;

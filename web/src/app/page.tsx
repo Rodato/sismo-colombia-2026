@@ -19,6 +19,18 @@ type Resumen = {
     deficit: number; menciones: number;
   }[];
   mas_mencionados: { municipio: string; departamento: string; menciones: number; mmi: number }[];
+  perdidas: {
+    con_cifra_propia: number; solo_departamental: number; sin_dato: number;
+    total_municipios: number; muertos_atribuidos: number; muertos_nacionales: number;
+    muertos_sin_atribuir: number; corte: string;
+    tablero_ungrd: { minutos_hasta_restriccion: number; campos: string; url: string };
+    municipios: {
+      municipio: string; departamento: string; pob: number; muertos: number;
+      por_100k: number; mmi: number; rank: number;
+    }[];
+    departamentos: { departamento: string; muertos: number | null; heridos: number | null;
+      viv_averiadas: number | null; viv_destruidas: number | null }[];
+  };
   fuentes: Record<string, string>;
 };
 
@@ -28,6 +40,13 @@ function leerResumen(): Resumen {
 }
 
 const nf = (v: number) => v.toLocaleString("es-CO");
+
+/** "2026-08-13" -> "13 de agosto de 2026". Se parsea a mediodía UTC para que el
+ *  huso del servidor no corra la fecha un día hacia atrás. */
+const fecha = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString("es-CO", {
+    day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+  });
 
 export default function Page() {
   const r = leerResumen();
@@ -183,6 +202,94 @@ export default function Page() {
           no prueba subregistro. Lo que muestra es cuánta incertidumbre sigue abierta mientras
           no exista el censo.
         </p>
+      </section>
+
+      <section className="mb-16">
+        <h2 className="mb-1 text-2xl font-semibold">Dónde se puede saber, y dónde no</h2>
+        <p className="mb-5 max-w-3xl text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+          Una cosa es cómo llegó la onda y otra son las pérdidas. Para mapear las segundas
+          hace falta un dato por municipio, y ese dato casi no existe:{" "}
+          <strong style={{ color: "var(--text-primary)" }}>
+            {r.perdidas.con_cifra_propia} de {nf(r.perdidas.total_municipios)} municipios
+          </strong>{" "}
+          tienen una cifra pública propia de muertos, heridos y viviendas. Los cinco son
+          ciudades capitales, y no por casualidad: la única fuente municipal es Asocapitales,
+          la asociación de ciudades capitales, que por diseño no puede contar un municipio que
+          no lo sea. Concentran {nf(r.perdidas.muertos_atribuidos)} de los{" "}
+          {nf(r.perdidas.muertos_nacionales)} muertos del país; los otros{" "}
+          {r.perdidas.muertos_sin_atribuir} no tienen municipio asignado en ninguna fuente
+          pública.
+        </p>
+
+        <div className="card mb-4 p-6 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+          <p>
+            <strong style={{ color: "var(--text-primary)" }}>El dato existió.</strong> La UNGRD
+            publicó un tablero con {r.perdidas.tablero_ungrd.campos}, desagregado por municipio
+            y departamento. Lo restringió{" "}
+            <strong style={{ color: "var(--text-primary)" }}>
+              {r.perdidas.tablero_ungrd.minutos_hasta_restriccion} minutos
+            </strong>{" "}
+            después de que el periodista Ronny Suárez Celemín hiciera pública su existencia. El
+            Sindicato Colombiano de Periodistas lo denunció como censura, señalando que la Ley
+            1712 de 2014 establece la máxima publicidad como regla y que el propio índice de
+            información clasificada de la UNGRD lista esos datos como públicos.{" "}
+            <a href={r.perdidas.tablero_ungrd.url} className="underline" style={{ color: "var(--series-1)" }}>
+              La denuncia
+            </a>
+            . Se buscó también la vía de datos abiertos: los conjuntos de emergencias de la UNGRD
+            en datos.gov.co tienen exactamente el esquema necesario, pero el más reciente termina
+            en 2024.
+          </p>
+        </div>
+
+        <div className="card scroll-x">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{ borderBottom: "1px solid var(--border)" }}>
+                {["Municipio", "Habitantes", "Muertos", "Por 100 mil", "MMI", "Puesto del índice"].map((h, i) => (
+                  <th key={h} className={`px-4 py-3 font-medium ${i ? "text-right" : "text-left"}`}
+                      style={{ color: "var(--text-muted)" }}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {r.perdidas.municipios.map((m) => (
+                <tr key={m.municipio} style={{ borderBottom: "1px solid var(--border)" }}>
+                  <td className="px-4 py-2.5 font-medium">{m.municipio}</td>
+                  <td className="tnum px-4 py-2.5 text-right">{nf(m.pob)}</td>
+                  <td className="tnum px-4 py-2.5 text-right">{nf(m.muertos)}</td>
+                  <td className="tnum px-4 py-2.5 text-right font-semibold">{m.por_100k.toFixed(1)}</td>
+                  <td className="tnum px-4 py-2.5 text-right">{m.mmi.toFixed(1)}</td>
+                  <td className="tnum px-4 py-2.5 text-right" style={{ color: "var(--text-secondary)" }}>
+                    #{m.rank}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 max-w-3xl text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
+          Cifras de Asocapitales, Informe Consolidado No. 22, corte del {fecha(r.perdidas.corte)}. En
+          términos absolutos el titular es Cali; normalizado por población, Pereira tiene 4,5
+          veces su tasa. El índice de exposición de esta pieza ya ubicaba a Pereira primero sin
+          usar ningún dato de víctimas, y su top 5 —Pereira, Cali, Manizales, Armenia y
+          Dosquebradas— coincide en cuatro con las cinco ciudades que Asocapitales declaró en
+          alerta roja.
+        </p>
+
+        <div className="card mt-4 p-6 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+          <p>
+            <strong style={{ color: "var(--text-primary)" }}>El punto ciego.</strong> Dosquebradas
+            es el quinto municipio más expuesto de los 682, tiene 246.388 habitantes y recibió
+            MMI 7,9, la misma sacudida que Pereira, con la que colinda. No tiene ni una cifra
+            propia porque no es capital. Aparece en la prensa únicamente como apéndice de otra
+            ciudad: <em>&ldquo;260 desaparecidas en Pereira y Dosquebradas&rdquo;</em>. Ese es el
+            aviso de lo que pasa en los otros {nf(r.perdidas.sin_dato + r.perdidas.solo_departamental)}{" "}
+            municipios sin cifra: no que no haya pérdidas, sino que no hay forma pública de saberlo.
+          </p>
+        </div>
       </section>
 
       <section className="mb-16">

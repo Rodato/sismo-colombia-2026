@@ -205,11 +205,41 @@ export default function Mapa() {
 }
 
 function Leyenda({ capa }: { capa: Capa }) {
+  // Capas ordinales: una muestra por nivel, con su nombre. La rampa completa de
+  // 7 pasos aquí no significa nada — solo 3 de sus escalones se usan.
+  if (capa.niveles) {
+    return (
+      <div className="mt-2 px-2 pb-1">
+        <div className="mb-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
+          {capa.nombre}
+        </div>
+        <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+          {capa.niveles.map((n) => (
+            <div key={n.etiqueta} className="flex items-center gap-1.5">
+              <div
+                style={{
+                  background: RAMPA[n.paso],
+                  width: 12,
+                  height: 12,
+                  borderRadius: 2,
+                  border: "1px solid var(--border)",
+                }}
+              />
+              <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>
+                {n.etiqueta}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   // Cada muestra de la rampa corresponde a una cubeta, y en las capas
   // invertidas el orden se voltea. Se calcula la cubeta real de cada muestra
   // en vez de suponer que van alineadas: con 6 cortes y 7 muestras, suponerlo
   // desplaza todas las etiquetas una posición.
-  const c = capa.cortes;
+  const c = capa.cortes!;
   const etiqueta = (bucket: number) =>
     bucket === 0
       ? `<${capa.formato(c[0])}`
@@ -263,6 +293,18 @@ function Ficha({ p, onCerrar }: { p: Props | null; onCerrar: () => void }) {
     ["Puesto por exposición", `#${p.rank} de 682`],
   ];
 
+  // Solo 5 municipios tienen cifra propia. Para el resto no se muestra "0"
+  // sino nada, porque cero muertos reportados y ningún reporte no son lo mismo:
+  // Armenia sí reportó cero.
+  if (p.cobertura_dato === 2) {
+    filas.push(
+      ["Muertos reportados", p.muertos_rep?.toLocaleString("es-CO") ?? "—"],
+      ["— por 100 mil hab.", p.muertos_100k?.toFixed(1) ?? "—"],
+      ["Heridos reportados", p.heridos_rep?.toLocaleString("es-CO") ?? "—"],
+      ["Desaparecidos", p.desaparecidos_rep?.toLocaleString("es-CO") ?? "—"],
+    );
+  }
+
   return (
     <div className="card p-5">
       <div className="flex items-start justify-between gap-2">
@@ -296,6 +338,18 @@ function Ficha({ p, onCerrar }: { p: Props | null; onCerrar: () => void }) {
         >
           Sacudida de nivel de daño y ninguna mención en el corpus analizado. Eso indica
           ausencia del relato nacional — no prueba que ningún medio lo haya cubierto.
+        </p>
+      )}
+      {p.cobertura_dato < 2 && p.mmi_max >= 6 && (
+        <p
+          className="mt-2 rounded-md p-2 text-xs leading-relaxed"
+          style={{ background: "var(--plane)", color: "var(--text-secondary)" }}
+        >
+          No existe cifra pública de pérdidas para este municipio.{" "}
+          {p.cobertura_dato === 1
+            ? "Solo se publicó el agregado de su departamento."
+            : "Ni siquiera hay agregado departamental."}{" "}
+          La única fuente municipal cubre a las 5 ciudades capitales en alerta roja.
         </p>
       )}
     </div>
